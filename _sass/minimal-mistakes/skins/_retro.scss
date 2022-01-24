@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Retro skin
+   ========================================================================== */
+
+/* Colors */
+$dark_blue                  : #30475E !default;
+$red                        : #F05454 !default;
+$dark-red                   : mix(#000, $red, 40%) !default;
+$darker-red                 : mix(#000, $red, 60%) !default;
+$light-red                  : mix(#fff, $red, 50%) !default;
+$lighter-blue               : mix(#fff, $dark_blue, 90%) !default;
+
+$body-color                 : #F5F5F5 !default;
+$background-color           : #F5F5F5 !default;
+$code-background-color      : $lighter-blue !default;
+$code-background-color-dark : $light-red !default;
+$text-color                 : #121212 !default;
+$border-color               : $lighter-blue !default;
+
+$primary-color              : #30475E !default;
+$success-color              : #27ae60 !default;
+$warning-color              : #e67e22 !default;
+$danger-color               : #c0392b !default;
+$info-color                 : #F05454 !default;
+
+/* links */
+$link-color                 : $info-color !default;
+$link-color-hover           : mix(#000, $link-color, 25%) !default;
+$link-color-visited         : mix(#fff, $link-color, 25%) !default;
+$masthead-link-color        : $primary-color !default;
+$masthead-link-color-hover  : mix(#000, $primary-color, 25%) !default;
+
+/* notices */
+$notice-background-mix: 90% !default;
+$code-notice-background-mix: 95% !default;

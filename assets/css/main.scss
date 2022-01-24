@@ -6,3 +6,13 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+$serif  : 'Spectral', serif;
+$sans-serif: 'Arial', sans-serif;
+
+$global-font-family : $serif;
+
+.page__content {
+  text-align: justify;
+}
+
