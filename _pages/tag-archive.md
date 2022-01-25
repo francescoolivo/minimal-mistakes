@@ -1,5 +1,5 @@
 ---
-title: Blog
+title: Tags
 layout: tags
 permalink: /tags/
 author_profile: false
