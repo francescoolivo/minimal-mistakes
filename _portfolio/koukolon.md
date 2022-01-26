@@ -1,10 +1,10 @@
 ---
 title: "Koukolon"
 excerpt: "A Java-based Tablut artificial player."
-canonical_url: "https://github.com/flaviopinzarrone/koukolon"
 header:
     teaser: "/assets/images/portfolio/transistor-waiting.png"
 last_modified_at: 2021-11-26
+order: 3
 ---
 
 # 2021 Tablut Challenge
