@@ -7,7 +7,7 @@ last_modified_at: 2021-11-26
 order: 3
 ---
 
-# 2021 Tablut Challenge
+## 2021 Tablut Challenge
 
 Tablut is a northern Europe board game, whose rules were first
 transcribed in Latin by Linnaeus in 1732. The Latin transcription
