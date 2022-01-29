@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Retro skin
+   ========================================================================== */
+
+/* Colors */
+$main                       : #596E79 !default;
+$dark-main                  : mix(#000, $main, 40%) !default;
+$darker-main                : mix(#000, $main, 60%) !default;
+$light-main                 : mix(#fff, $main, 50%) !default;
+$lighter-main               : mix(#fff, $main, 90%) !default;
+
+$secundary                  : #C7B198 !default;
+$dark-secundary             : mix(#000, $secundary, 40%) !default;
+$darker-secundary           : mix(#000, $secundary, 60%) !default;
+$light-secundary            : mix(#fff, $secundary, 50%) !default;
+$lighter-secundary          : mix(#fff, $secundary, 90%) !default;
+
+$tertiary                   : #DFD3C3 !default;
+$dark-tertiary              : mix(#000, $tertiary, 40%) !default;
+$darker-tertiary            : mix(#000, $tertiary, 60%) !default;
+$light-tertiary             : mix(#fff, $tertiary, 50%) !default;
+$lighter-tertiary           : mix(#fff, $tertiary, 90%) !default;
+
+$body-color                 : #F0ECE3 !default;
+$background-color           : #F0ECE3 !default;
+$code-background-color      : $lighter-secundary !default;
+$code-background-color-dark : $light-secundary !default;
+$text-color                 : #121212 !default;
+$border-color               : $lighter-secundary !default;
+
+$primary-color              : $main !default;
+$success-color              : #27ae60 !default;
+$warning-color              : #e67e22 !default;
+$danger-color               : #c0392b !default;
+$info-color                 : $secundary !default;
+
+/* links */
+$link-color                 : $info-color !default;
+$link-color-hover           : mix(#000, $link-color, 25%) !default;
+$link-color-visited         : mix(#fff, $link-color, 25%) !default;
+$masthead-link-color        : $primary-color !default;
+$masthead-link-color-hover  : mix(#000, $primary-color, 25%) !default;
+
+/* notices */
+$notice-background-mix: 90% !default;
+$code-notice-background-mix: 95% !default;
