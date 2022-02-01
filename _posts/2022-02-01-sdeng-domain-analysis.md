@@ -4,33 +4,9 @@ categories:
 - "Sdeng"
 ---
 
-Hello everyone, and welcome back to <i>Sdeng: a library for basketball data and analysis</i>. Today's chapter focuses on functional requirements and domain analysis: we will make some considerations about the involved entities and the relationships among them.
-
-## Requirements analysis
-
-From a software engineering standpoint, to perform a model analysis, we first need to analyze the functional requirements of the system. Luckily enough, the core ones are only a couple.
-
-- The user can download basketball data from many leagues. The query should be as customizable and extendable as possible.
-- The system offers functions to analyze and plot the downloaded data, according to the state-of-the-art techniques in the field.
-
-
-Basically, the library has two main components: an extendable interface to download data, which hides the details of the websites from which data are collected, and a set of tools to plot and analyze them.
-
-The user can choose among two main data formats: SQL databases or language-specific dataframes. More specifically, pandas dataframes for python, and, in a second moment, R dataframes. Please note that I did not mention csv files since they can be easily obtained from dataframes.
-
-Each of these formats has its pros and cons: data frames are easy to use, immediate and allow quick analyses; SQL, even if is definitely overkill for storing a couple of games, is the best choice to store big amounts of data. The known python library "pandas" allows querying a SQL database, guaranteeing compatibility among the two options.
-
-TODO review
-
-Let's consider a simple example: I want to download all the boxscores of a team in a season. In the data frame case, there is no difference between the model and the presentation, therefore the frame will contain the boxscores directly. SQL, on the other case, separates the presentation and the model. Consequently, the database will store data in the most atomic way possible, play-by-play logs. The boxscores can be obtained afterward using a specific view. Of course, this strategy has a tradeoff in terms of memory usage, but the underlying assumption is that if you use a SQL database you will reuse the data differently.
-
-In this chapter, I will only consider the database structure. All alternatives formats, such as boxscores, players stats, etc., will be discussed in the following chapters, where we will compare the data frame format and the corresponding SQL view.
-
----
+Hello everyone, and welcome back to <i>Sdeng: a library for basketball data and analysis</i>. Today's chapter focuses on the domain analysis: we will make some considerations about the involved entities and the relationships among them.
 
 ## Domain analysis
-
-Now that we defined the fundamental requirements and some general principles, let's dive into the domain analysis.
 
 Let's start with the entities involved. It's likely that I forget or don't consider some useful attribute: if you think I forgot a relevant attribute or class please feel free to comment, and I will add it.
 
