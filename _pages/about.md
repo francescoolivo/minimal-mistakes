@@ -12,6 +12,6 @@ title: About me
 
 <p>One of my hobbies is to collect books, articles, and papers in my <i>to read</i> list, which I am constantly struggling to keep up with. Nonetheless, there are way too many interesting stuff and skills out there, and my goal is to grasp something new every day</p>
 
-<p>If you like what I post you can send me a mail at the address on the left, I promise to get back shortly. In case you are looking for a more complete description of my background, here is my <a href="/assets/pdfs/resume.pdf">resume</a>.</p>
+<p>If you like what I post you can send me a mail at the address on the left, I promise to get back shortly. In case you are looking for a more complete description of my background, here is my <a href="/assets/pdfs/Olivo_Francesco_resume.pdf">resume</a>.</p>
 
 <p>Cheers!</p>

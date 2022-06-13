@@ -4,5 +4,10 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="08d56537c22f11e89039d38218d266b7" level="application" />
+    <orderEntry type="library" name="4e3f8f2574776a773fe024ab0aeb6094" level="application" />
+    <orderEntry type="library" name="8fe0597b2cc171f6d76ae207854672ce" level="application" />
+    <orderEntry type="library" name="c04d82dc9226cffcfca22cf65a13a11f" level="application" />
+    <orderEntry type="library" name="dd699831ea130e54cc4f5d8b92ceea4c" level="application" />
   </component>
 </module>
