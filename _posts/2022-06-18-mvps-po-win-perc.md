@@ -1,14 +1,9 @@
 ---
-title: "Plotting the MVPS playoffs winning percentage"
+title: "Plotting the MVPs playoffs winning percentage"
 header:
     teaser: "/assets/images/articles/mvps_win_perc_final.png"
 categories:
 - "Analyses"
-gallery:
-- url: /assets/images/articles/mvps_win_perc_final.png
-  image_path: /assets/images/articles/mvps_win_perc_final.png
-  alt: "final plot"
-  title: "Plot final version"
 ---
 
 If you don't live under a rock, you probably heard that the Golden State Warriors won the 2022 NBA title, their fourth since 2015,
@@ -22,6 +17,7 @@ Now, to quote one of my favorite Facebook tag pages, *this is terrible data pres
 
 The information is not wrong *per se*, but the plot type does not allow to fully express the range of values within the MVP winners.
 I then decided to remake the chart in a better way, and I am writing this tutorial hoping that you might find it useful.
+
 ## Getting the data
 
 The author of the original chart got the data from [stathead](stathead.com), but since I don't have a subscription, we'll have to scrape the data from basketball-reference.
@@ -48,7 +44,12 @@ A list of the mvps is available [here](https://www.basketball-reference.com/awar
 
 This is what we get when we analyze the page using the browser inspector:
 
-![MVPs website inspection](/assets/images/articles/mvp_summary.png)
+<a href="/assets/images/articles/mvp_summary.png">
+    <img 
+        src="/assets/images/articles/mvp_summary.png" 
+        alt="MVPs website inspection"
+    >
+</a>
 
 We can find the table we need using its id, namely ```mvp_summary```, and every row in the body can be collected by iterating over all ```tr``` tags.
 
@@ -96,7 +97,12 @@ The data that we are interested in is the first row of the footer of the table, 
 
 By inspecting the page we find out that the table has the id ```playoffs-series```, and that the first ```tr``` of the ```tfoot``` tag contains all the information we are looking for.
 
-![PO record inspection](/assets/images/articles/po_record.png)
+<a href="/assets/images/articles/po_record.png">
+    <img 
+        src="/assets/images/articles/po_record.png" 
+        alt="PO record inspection"
+    >
+</a>
 
 In particular, we can categorize the columns using the `data-stat` attribute:
 - `g` for the total number of games
@@ -190,7 +196,12 @@ df %>%
   geom_label()
 ```
 
-![Plot version 1](/assets/images/articles/mvps_win_perc_1.png)
+<a href="/assets/images/articles/mvps_win_perc_1.png">
+    <img 
+        src="/assets/images/articles/mvps_win_perc_1.png" 
+        alt="Plot version 1"
+    >
+</a>
 
 This plot does provide much more information than the original one:
 1. We can see in a clearer way the differences among players with a similar win percentage.
@@ -221,8 +232,12 @@ df %>%
   scale_x_continuous(breaks = seq(50, 300, 50)) +
   scale_y_continuous(breaks = seq(0.2, 1, 0.1), labels = scales::percent)
 ```
-
-![Plot version 2](/assets/images/articles/mvps_win_perc_2.png)
+<a href="/assets/images/articles/mvps_win_perc_2.png">
+    <img 
+        src="/assets/images/articles/mvps_win_perc_2.png" 
+        alt="Plot version 2"
+    >
+</a>
 
 Finally, let's adjust the label and the theme of the plot:
 
@@ -276,6 +291,11 @@ ggsave("mvps_win_perc_final.png", w = 12, h = 9, dpi = 300)
 
 Thus creating the final plot.
 
-{% include gallery %}
+<a href="/assets/images/articles/mvps_win_perc_final.png">
+    <img 
+        src="/assets/images/articles/mvps_win_perc_final.png" 
+        alt="Plot final version"
+    >
+</a>
 
-
+Hope you found the tutorial useful, stay tuned for other articles!

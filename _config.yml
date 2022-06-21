@@ -22,7 +22,7 @@ subtitle                 : #"Data scientist" # site tagline that appears below s
 name                     : "Francesco Olivo"
 description              : "My blog and portfolio"
 url                      : #"https://francescoolivo.com" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "/" # the subpath of your site, e.g. "/blog"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
@@ -33,26 +33,26 @@ comments:
   provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "giscus", "custom"
   disqus:
     shortname            : "francescoolivo" # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
-  discourse:
-    server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
-  facebook:
-    # https://developers.facebook.com/docs/plugins/comments
-    appid                :
-    num_posts            : # 5 (default)
-    colorscheme          : # "light" (default), "dark"
-  utterances:
-    theme                : # "github-light" (default), "github-dark"
-    issue_term           : # "pathname" (default)
-  giscus:
-    repo_id              : # Shown during giscus setup at https://giscus.app
-    category_name        : # Full text name of the category
-    category_id          : # Shown during giscus setup at https://giscus.app
-    discussion_term      : # "pathname" (default), "url", "title", "og:title"
-    reactions_enabled    : # '1' for enabled (default), '0' for disabled
-    theme                : # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
-  staticman:
-    branch               : # "master"
-    endpoint             : # "https://{your Staticman v3 API}/v3/entry/github/"
+#  discourse:
+#    server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
+#  facebook:
+#    # https://developers.facebook.com/docs/plugins/comments
+#    appid                :
+#    num_posts            : # 5 (default)
+#    colorscheme          : # "light" (default), "dark"
+#  utterances:
+#    theme                : # "github-light" (default), "github-dark"
+#    issue_term           : # "pathname" (default)
+#  giscus:
+#    repo_id              : # Shown during giscus setup at https://giscus.app
+#    category_name        : # Full text name of the category
+#    category_id          : # Shown during giscus setup at https://giscus.app
+#    discussion_term      : # "pathname" (default), "url", "title", "og:title"
+#    reactions_enabled    : # '1' for enabled (default), '0' for disabled
+#    theme                : # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
+#  staticman:
+#    branch               : # "master"
+#    endpoint             : # "https://{your Staticman v3 API}/v3/entry/github/"
 reCaptcha:
   siteKey                :
   secret                 :
@@ -275,7 +275,7 @@ defaults:
       show_date: false
       date_format: "%Y-%m-%d"
       read_time: true
-      comments: false
+      comments: true
       share: false
       related: true
   # _pages

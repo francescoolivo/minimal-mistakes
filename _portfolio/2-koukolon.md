@@ -4,7 +4,6 @@ excerpt: "A Java-based Tablut artificial player."
 header:
     teaser: "/assets/images/portfolio/transistor-waiting.png"
 last_modified_at: 2021-11-26
-order: 3
 ---
 
 ## 2021 Tablut Challenge
