@@ -1,15 +1,22 @@
 ---
-title: "Yet another playoffs winning percentage chart"
-excerpt: "But this the scraper is written with R!"
+title: "Yet another playoffs wins chart"
+excerpt: "But this time the scraper is written with R!"
 header:
-    teaser: "/assets/images/articles/mvps_win_perc_final.png"
+    teaser: "/assets/images/articles/win_vs_games_dynasties.png"
 categories:
 - "Analyses"
+gallery:
+- url: /assets/images/articles/win_vs_games_dynasties.png
+  image_path: /assets/images/articles/win_vs_games_dynasties.png
+  alt: "Some of the most iconic dynasties form clusters"
+- url: /assets/images/articles/win_perc_all.png
+  image_path: /assets/images/articles/win_perc_all.png
+  alt: "Winning percentage against PO games"
 ---
 
 Welcome back! Today I will make a new plot, answering the question that I raised in [my last article]({% post_url 2022-06-18-mvps-po-win-perc %}).
 
-The question in subject is if there is a correlation between the number of played playoffs games and the playoffs winning percentage of a player.
+The question in subject is if there is a correlation between the number of played playoffs games and the playoffs wins of a player. Actually, the question was if the correlation is about games and winning percentage, but since the winning percentage is a ratio and is computed using the wins, I will directly use the wins.
 The rationale is that a good player is likely to play many playoffs games, and that a good player should also help the team to win.
 
 So, without further ado, let's jump into the tutorial to fetch the data and then plot it. This time I will scrape the data using R and the `rvest` package.
@@ -17,7 +24,7 @@ It's my first time scraping with R, so forgive if the code is not perfect.
 
 # Getting the data
 
-Just like last time, we will get the data from [basketball-reference](basketball-reference.com). Yet this time, instead of fetching the data for MVPs only, we will get it for every player who ever made an appearance in the NBA playoffs.
+Just like last time, we will get the data from [basketball-reference](https://www.basketball-reference.com). Yet this time, instead of fetching the data for MVPs only, we will get it for every player who ever made an appearance in the NBA playoffs.
 
 To do so, we will start from [the list of NBA players](https://www.basketball-reference.com/players/), and we shall iterate over all the letters. From any letter page, we will get some player information, such as the role and the status (active or retired), and using the link to his page we will eventually scrape the playoffs record.
 
@@ -137,36 +144,23 @@ And we're done! We simply need to plot the data and analyze it.
 
 ## Plotting the data
 
+I will plot two different charts, one about the winning percentage, and one about the total wins.
+
 This time I will not make any intermediate version of the chart, if you are interested in the details you can read my [last article]({% post_url 2022-06-18-mvps-po-win-perc %}) where I discuss them.
 
 ```R
 df %>%
-  # removing non-relevant data
-  filter(games >= 50) %>%
-  ggplot(aes(x = games, y = perc)) +
+  ggplot(aes(x = games, y = wins)) +
+  geom_point(shape = 21, alpha = .75, size = 2.5, position = position_jitter(seed = 1729), fill = "gray") +
   # adding a smoothed line to the chart to understand the trend
-  geom_smooth(color = "gray30", se = FALSE) +
-  # plotting the points with a small jitter
-  geom_point(aes(fill = status), shape = 21, alpha = .75, size = 2.5, position = position_jitter(seed = 1729)) +
-  # setting the scales
-  scale_fill_manual(values = c("firebrick2", "dodgerblue2")) +
-  scale_x_continuous(breaks = seq(50, 300, 50)) +
-  scale_y_continuous(breaks = seq(0.2, 1, 0.1), labels = scales::percent, limits = c(.29, .76)) +
-  #labeling interesting active players
-  annotate(geom = 'label', x = 263, y = .66, hjust = 1, vjust = 0, label = "LeBron", fill = "ghostwhite", color = 'grey20', family = "Consolas", size = 3) +
-  annotate(geom = 'label', x = 147, y = .71, hjust = 0, vjust = 0, label = "Draymond & Klay", fill = "ghostwhite", color = 'grey20', family = "Consolas", size = 3) +
-  annotate(geom = 'label', x = 134, y = .705, hjust = 0.75, vjust = 0, label = "Steph", fill = "ghostwhite", color = 'grey20', family = "Consolas", size = 3) +
-  annotate(geom = 'label', x = 66, y = .725, hjust = 0, vjust = 0, label = "Looney", fill = "ghostwhite", color = 'grey20', family = "Consolas", size = 3) +
-  annotate(geom = 'label', x = 63, y = .305, hjust = 0.25, vjust = 1, label = "McCollum", fill = "ghostwhite", color = 'grey20', family = "Consolas", size = 3) +
-  annotate(geom = 'label', x = 85, y = .33, hjust = 0, vjust = 1, label = "Melo", fill = "ghostwhite", color = 'grey20', family = "Consolas", size = 3) +
+  geom_smooth(color = "firebrick2", se = TRUE, fill = "firebrick3") +
   # adding the labs
   labs(
-      title = "Playoffs winning percentage",
-      subtitle = "Among players with at least 50 playoffs games.",
-      caption = "Author: Francesco Olivo\nData: basketball-reference.com",
-      x = "Games",
-      y = "PO win percentage"
-    ) +
+    title = "Playoffs wins against games",
+    caption = "Author: Francesco Olivo\nData: basketball-reference.com",
+    x = "Games",
+    y = "Wins"
+  ) +
   # setting the theme
   theme_minimal(base_size=9, base_family="Consolas") +
   theme(
@@ -184,63 +178,59 @@ df %>%
   )
 
 # saving the plot
-ggsave("winning_perc.png", w = 8, h = 6, dpi = 600)
+ggsave("win_vs_games.png", w = 8, h = 6, dpi = 600)
 ```
 
-<a href="/assets/images/articles/win_perc_all.png">
+<a href="/assets/images/articles/win_vs_games.png">
     <img 
-        src="/assets/images/articles/win_perc_all.png" 
-        alt="Winning percentage in the playoffs"
+        src="/assets/images/articles/win_vs_games.png" 
+        alt="PO wins against PO games"
     >
 </a>
 
 ## Analyzing the data
 
-It looks like there is a certain correlation, particularly for *very* good players. Basically, all the players with at least 200 games in the playoffs, namely:
-- LeBron James (266)
-- Derek Fisher (259)
-- Tim Duncan (251)
-- Robert Horry (244)
-- Kareem Abdul-Jabbar (237)
-- Tony Parker (226)
-- Kobe Bryant (220)
-- Manu Ginóbili (218)
-- Shaquille O'Neal (216)
-- Scottie Pippen (208)
-Have a winning percentage of at least 60%. Incidentally, the first player with less than 50% is John Stockton, who won 89 of his 182 playoffs games.
+The linear relationship is quite evident. Nonetheless, let's use a scientific approach and let's formulate a hypothesis.
 
-Thus said, as the smoothed line suggest, there is a certain correlation. If we look at the data including also players who played less than 50 playoff games, it is even more clear:
+### Choosing a test statistic
 
-<a href="/assets/images/articles/win_perc_all_nolimits.png">
-    <img 
-        src="/assets/images/articles/win_perc_all_nolimits.png" 
-        alt="Winning percentage in the playoffs, all players"
-    >
-</a>
+I will use Pearson correlation as test statistic.
 
-If we compute the correlation score, using
-
+In R, we can compute it in this simple way:
 ```R
-cor(df$games, df$perc)
+cor(df$games, df$wins, method = "pearson")
 ```
 
-We get 0.33, which indicates a correlation, but quite weak. So it's likely that the number of playoff games is a factor, but not the only one.
+Which returns a quite strong 0.98 result. Remember that Pearson correlation coefficient ranges between 1 and -1, so it's a pretty good result.
 
-An important factor is the team that a players plays for, since a role guy may get an incredibly high winning percentage just by playing along a superstar. For instance, the active player with the highest percentage right now is Kevon Looney, that is a good player but not a superstar.
+### Defining the null hypothesis
 
-This chart shows how we can "cluster" some of the most iconic dynasties:
+Having a good result is not enough, in fact we should test the null hypothesis, to guarantee that we did not obtain this result by chance.
 
-<a href="/assets/images/articles/win_perc_dynasties.png">
-    <img 
-        src="/assets/images/articles/win_perc_dynasties.png" 
-        alt="Winning percentage in the playoffs by dynasty"
-    >
-</a>
+In our case, the null hypothesis is that playoffs games and playoffs wins are not correlated.
 
-Also, there are many great players that played a lot of PO games but did not win anything, take the dynamic duo Stockton and Malone.
+### Computing the p-value
 
-So, all in all, we can answer the question:
+We choose a standard threshold for the p-value, that is 0.05. If our p-value is less than this threshold, we can reject the null hypothesis.
 
-The number of PO games is *one* of the factors which helps to predict a player PO winning percentage, but it is not the only one. For a more complete analysis one should also consider the role in the team, the teammates and the strength of the opponents.
+```R
+cor.test(df$games, df$wins, method = "pearson")
+```
 
-This is for today, thank you for making it till the end!
+### Interpreting the result
+
+The result is `p-value < 2.2e-16`, which is way lower than 0.05, thus allowing us to reject the null hypothesis.
+
+We can now answer the question positively: there is a correlation between played games and wins. 
+
+In particular, by looking at the previous plot, we can observe two patterns: for players with less than (approximately) 75 games the ration is 0.5, that means a win every two games.
+
+The trend seems to be higher for players with more than 75 games, in particular the ratio seems to increase up to 0.75, which is pretty high. This data was computed approximately by looking at the chart, maybe I will compute it precisely in the next weeks so stay tuned.
+
+## Another couple of charts
+
+While I was writing the article I made another couple of charts which may be interesting, so I will leave them here. If you are interested in the tutorial you can [contact me](mailto:francesco.olivo@ßdeng.io), and I will send you the code. 
+
+This way of sharing code sucks, I know, and I am preparing a git where you can find all of my charts, but it will take some internal reorganizing. It will probably be ready in the autumn since now I'm packed with my exams.
+
+{% include gallery caption="Some nice charts" %}

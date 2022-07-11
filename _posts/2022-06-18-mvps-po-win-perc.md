@@ -20,7 +20,7 @@ I then decided to remake the chart in a better way, and I am writing this tutori
 
 ## Getting the data
 
-The author of the original chart got the data from [stathead](stathead.com), but since I don't have a subscription, we'll have to scrape the data from basketball-reference.
+The author of the original chart got the data from [stathead](https://www.stathead.com), but since I don't have a subscription, we'll have to scrape the data from basketball-reference.
 
 First thing, we set up the jupyter notebook, importing the libraries and creating a utilty function that we will need frequently.
 

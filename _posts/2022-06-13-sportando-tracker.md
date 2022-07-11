@@ -1,5 +1,7 @@
 ---
 title: "Sportando tracker"
+header:
+    teaser: "/assets/images/articles/sportando.png"
 categories:
 - "Basketball"
 ---
