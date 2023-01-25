@@ -16,6 +16,7 @@ source "https://rubygems.org"
 gem "jekyll"
 gem "minimal-mistakes-jekyll"
 gem 'jekyll-archives'
+gem "jekyll-datapage-generator"
 
 # The following plugins are automatically loaded by the theme-gem:
 #   gem "jekyll-paginate"

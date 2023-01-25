@@ -2,11 +2,9 @@
 title: "VLSI"
 excerpt: "An optimization solver for the VLSI problem."
 header:
-teaser: "/assets/images/portfolio/transistor-boxes.png"
+    teaser: "/assets/images/portfolio/transistor-boxes.png"
 last_modified_at: 2022-07-11
 --- 
-
-# VLSI solver
 
 ![image](/assets/images/VLSI/out-35.png)
 
