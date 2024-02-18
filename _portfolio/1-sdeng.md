@@ -6,6 +6,8 @@ header:
 last_modified_at: 2022-05-15
 --- 
 
+UPDATE 2023-01-26: the project is not open-source at the moment. If you are interested, please [email me](mailto:francesco.olivo@sdeng.io).
+
 _Sdeng_ is a web crawler for downloading and querying international basketball data from the web.
 
 I noticed that it's very hard to find accurate play-by-play logs for overseas basketball, so I tried to develop an easy-to-use and expandable system to download them.

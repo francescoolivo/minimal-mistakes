@@ -10,7 +10,7 @@ categories:
 Or, in other words, a practical example of how pivoting turns out usefeul.
 ## Abstract
 
-Plus Minus (+/-) is a basketball statistic which tries to evaluate the performance of a team when a player is on the court, by summing the score differential across all actions when a player is on court. Nonetheless, Plus Minus ( +/-) is known to have several shortcomings.
+Plus Minus (+/-) is a basketball statistic which tries to evaluate the performance of a team when a player is on the court, by summing the score differential across all actions when a player is on court. Nonetheless, Plus Minus (+/-) is known to have several shortcomings.
 The main reason is that since basketball is a team sport, a player alone is not entirely accountable for the performance of the team. In fact, if an average player constantly shares the court with very good teammates, he will generally have a high +/-, despite having a reduced impact on the game. On the contrary, a good player in a bad team will likely have a negative +/-, despite bringing positive value to his team.
 
 Adjusted Plus Minus (APM) is an advanced metric that tries to evaluate a player's impact regardless of the teammates and opponents he shares the court with. It was first developed by Dan Rosenbaum in [Measuring How NBA Players Help Their Teams Win](http://www.82games.com/comm30.htm). It does so by using a regression considering all the players on court in a given part of the game and the result of that specific part of game. Nonetheless, it has a major problem, which is the tendency to overfit data. To overcome this, Regularized Adjusted Plus Minus (RAPM) was developed, which regularizes data to avoid overfitting and smoothen outliers.
@@ -73,7 +73,7 @@ APM and RAPM should ideally filter this out, since a player can have a positive 
 
 ## Data
 
-I will not delve into details of how data was scraped and cleaned, since it is out of the scope of the project. You can download the datatset [here](/assets/zips/data.zip)
+I will not delve into details of how data was scraped and cleaned, since it is out of the scope of the project. You can download the datatset [here](/assets/zips/data.zip).
 
 Data consists of 5 dataframes for each of the 5 seasons, containing play-by-play logs, boxscores and information about players, teams and games.
 The dataframes will be concatenated in order to have only five dataframes instead of twentyfive, and this will be dealt with by the utility function.
@@ -95,10 +95,9 @@ In particular, these are the columns of the play-by-play logs:
 ```R
 library(tidyverse)
 
-source('/home/francescoolivo/PycharmProjects/sdeng/readers/stats/stats.R')
-source('/home/francescoolivo/PycharmProjects/sdeng/readers/import/R/csv.R')
-
-setwd('/home/francescoolivo/PycharmProjects/Virtus')
+# utilities functions to import data and compute stats
+source('sdeng/readers/stats/stats.R')
+source('sdeng/readers/import/R/csv.R')
 
 data <- get_data('analyses/RAPM/data')
 ign <- list2env(data, envir = .GlobalEnv)
@@ -228,8 +227,7 @@ head(apm_data)
 
 
 As we can see, there is an extremely high variance and a very high p-value, which means that we cannot reject the null hypothesis, and the results are likely due to chance.
-
-As I mentioned before, APM is known for this high variance, even in the NBA where the sample size is way greater.
+Such a high standard error makes it impossible to use this metric. Also, values are extremely high across the whole dataset, where we would expect them to be both positive and negative, and centered in 0.
 
 This is the reason why Regularized Adjusted Plus Minus was developed.
 
@@ -276,6 +274,8 @@ head(rapm_data)
 | Nemanja Gordic | -2.41    |
 | Alex Tyus      | -0.67    |
 
+Unfortunately, `lmridge` does not show the p-value for the results which provides, but differently from APM, the values are in a suitable range, since they are closer to 0 and, although this small sample only has negative values, both positive and negative.
+
 ## Results
 
 Now, we can join all of our data and draw some insights:
@@ -302,11 +302,11 @@ head(result)
 
 ![Funnel effect between time and APM](/assets/images/articles/rapm/correlogram2.png)
 
-As we can see, the plot with APM vs minutes played shows a very strong funnel shape, which is extremely reduced in the RAPM case. Nonetheless, let's filter out players who played less than 1000 minutes, and look at the best players:
+As we can see, the plot displaying APM vs minutes played shows a very strong funnel shape due to the high variance, which is extremely reduced in the RAPM case:
 
-It is also interesting to note how RAPM is less correlated with record than +/-. As I mentioned in the introduction, it is fair that a good player makes a team good, and similarly a good team has good players, which leads to a certain correlation.
+It is also interesting to note how RAPM is less correlated with record than traditional +/-. As I mentioned in the introduction, it is fair that a good player makes a team good, and similarly a good team has good players, which leads to a certain correlation. Yet, it's quite common to have good players in bad time and vice versa, which justifies a medium correlation.
 
-Now, let's look at the results:
+Now, let's look at the results, among players who played at least 1000 minutes:
 
 ```R
 result %>%
@@ -330,9 +330,11 @@ result %>%
 
 The results are interesting: in the top 10 we have three of the best players in the recent history of Euroleague, such as Campazzo, Tavares and Mirotic, and a lot of "solid" role players. This actually makes sense, since a player does not provide value to his team only by filling his boxscore, but also through effort and other actions that do not fall in the tracked statistics.
 
+Yet, I would not expect Sanli, Balbay and Smits as the most impactful players of the competition.
+
 ## Improvements of the model
 
-This model works fine, but I think that we could add a few tweaks to improve his power: in fact, at the moment each possession has the same weight, which is not the case in basketball.
+This model works fine, but I think that we could add a few tweaks to make it more insightful: in fact, at the moment each possession has the same weight, which is not the case in basketball. In fact, there are relevant possessions, such as playoffs games or tied games, and the so-called "garbage time", when the difference between the two teams is so big that events during this time are not that important.
 
 At the same time, having play-by-plays allows to segment offensive and defensive RAPM, to evaluate the impact each player has on both sides of the court separately.
 
@@ -466,14 +468,13 @@ head(result2, 10)
 
 We can see how the players are more or the less the same, despite some changes in the ranking. Interestingly, 4 out of the first 6 players played on average less than 20 minutes per game.
 
-In this case, we can see in which side of the court players add most of their value: there are some defnesive specialists, such as the two-time Defensive Player of The Year Walter Tavares, or an offensive specialist as Marko Guduric, or two-way players such as Balbay, Sanly and Singleton.
+In this case, we can see in which side of the court players add most of their value: there are some defensive specialists, such as the two-time Defensive Player of The Year Walter Tavares, or an offensive specialist as Marko Guduric, or two-way players such as Balbay, Sanly and Singleton.
 
-![Players RAPM](/assets/images/articles/rapm/players.png)
+Yet, we would not expect some of these players to be so impactful. At the same time, some of the best players of the competition, such as Micic, Larkin, and Calathes do not fall into the top 10, which is surprising.
 
+<iframe src="https://francescoolivo.shinyapps.io/RAPM_Euroleague/" style="border:none;height: 1200px; width: 100%;"></iframe>
 
-Yet, the leader of the board Balbay is quite a surprise, since he plays only 9 minutes per game and, even if he is a solid player, is not considered such an impactful player. This may be
-
-We can also look at the best players on the offensive side:
+We can look at the best players specifically on the offensive side:
 
 ```R
 result2 %>%
@@ -494,7 +495,7 @@ result2 %>%
 | Semen Antonov   | 125       | 0.73       | 1206.93 | 2125     | 9.66       | 161    | 1.09      | 0.54      | 1.63     |
 | Daniel Hackett  | 135       | 0.64       | 2863.98 | 5046     | 21.21      | 451    | 1.07      | 0.79      | 1.85     |
 
-Where we can see Will Clyburn, one of the best scorers of the league, and of the "clutchest" players.
+Where we can see Will Clyburn, one of the best scorers of the league, and of the "clutchest" players. Yet, many of the best offensive players do not fall into this list.
 
 On the other side, the players with the highest defensive RAPM are:
 
@@ -516,6 +517,10 @@ result2 %>%
 | Adam Hanga       | 153       | 0.63       | 3024.32 | 5722     | 19.77      | 235    | -0.29     | 1.43      | 1.14     |
 | Moustapha Fall   | 68        | 0.51       | 1531.95 | 2728     | 22.53      | 185    | 0.76      | 1.13      | 1.9      |
 | Elijah Bryant    | 97        | 0.57       | 2012.8  | 3768     | 20.75      | 137    | -0.16     | 1.13      | 0.97     |
+
+These results are more coherent with what we would expect, since all of these players are know for their defensive impact and effort.
+
+You can find the full results [here](/assets/csvs/euroleague_rapm.csv).
 
 ## Conclusions
 
